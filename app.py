@@ -1,12 +1,17 @@
-
 from flask import Flask, render_template, request
-#from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit
 from flask_bootstrap import Bootstrap
+
+app = Flask(__name__)
+socketio = SocketIO(app)
+bootstrap = Bootstrap(app)
+
 
 @app.route('/')
 def index():
     my_list = ['apples', 'oranges', 'grapes', 'pineapples']
     return render_template('index.html', async_mode=socketio.async_mode, my_list = my_list)
+
 
 @app.route('/meow')
 def meow():
