@@ -1,0 +1,57 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RPi Web Server</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+
+    <style>
+        #custom-handle {
+            width: 3em;
+            height: 1.6em;
+            top: 50%;
+            margin-top: -.8em;
+            text-align: center;
+            line-height: 1.6em;
+        }
+    </style>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script>
+        $(function() {
+            var handle = $("#custom-handle");
+            $("#slider").slider({
+                min: 0,
+                max: 100,
+                value: 50,
+                create: function() {
+                    handle.text($(this).slider("value"));
+                },
+                slide: function(event, ui) {
+                    handle.text(ui.value);
+                    $.getJSON('/valueofslider', {
+                        a: ui.value
+                    });
+                }
+            });
+        })
+    </script>
+</head>
+
+
+<body>
+    <div>
+        <h4>Running the index file from the templates directory</h4>
+        <div class="container">{{servoPIN}}</div class="container">
+        <div id="slider">
+            <div id="custom-handle" class="ui-slider-handle"></div>
+        </div>
+    </div>
+</body>
+
+</html>

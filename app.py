@@ -22,7 +22,8 @@ def index():
 @app.route('/valueofslider')
 def slide():
     a = request.args.get('a')
-    s.ServoAngle(a)
+    s.ServoAngle(int(a))
+    return 'OK'
 
 
 if __name__ == '__main__':
