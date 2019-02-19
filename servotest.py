@@ -14,18 +14,17 @@ import time
 
 class MyServo:
     """Object for servo"""
-
-    servoPIN = 17
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(servoPIN, GPIO.OUT)
-
-    p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWN with 50HZ
-    p.start(2)  # Initialization
+    def __init__(self, SP=17, frequency=50, GPIO=GPIO.setmode(GPIO.BCM)):
+        self.servoPIN = SP
+        self.frequency = frequency
+        self.GPIO = GPIO.setup(self.servoPIN, GPIO.OUT)
+        self.p = GPIO.PWM(self.servoPIN, self.frequency).start(2)  # GPIO 17 for PWN with 50HZ
 
     def ServoAngle(self, y):
         self.p.ChangeDutyCycle(y)
 
 x = MyServo()
+x.servoPIN = 17
 
 try:
     for i in range(2, 12, 2):
@@ -33,7 +32,4 @@ try:
         time.sleep(0.5)
 except KeyboardInterrupt:
     x.p.stop()
-    GPIO.cleanup()
-
-
-
+    x.GPIO.cleanup()
